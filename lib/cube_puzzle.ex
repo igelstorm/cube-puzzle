@@ -23,29 +23,28 @@ defmodule CubePuzzle do
   """
   def walk(moves) do
     moves
-    |> List.foldl([{0, 0, 0}], fn move, acc -> step(acc, {1, 0, 0}, move) end)
+    |> List.foldl([{0, 0, 0}], fn move, acc -> step({move, {1, 0, 0}}, acc) end)
     |> Enum.reverse()
   end
 
   @doc """
   Given a previous path and a direction, adds one or more new steps in the given direction.
-    iex> CubePuzzle.step([{0, 0, 0}], {1, 0, 0}, 1)
+    iex> CubePuzzle.step({1, {1, 0, 0}}, [{0, 0, 0}])
     [{1, 0, 0}, {0, 0, 0}]
 
-    iex> CubePuzzle.step([{0, 0, 0}], {1, 0, 0}, 3)
+    iex> CubePuzzle.step({3, {1, 0, 0}}, [{0, 0, 0}])
     [{3, 0, 0}, {2, 0, 0}, {1, 0, 0}, {0, 0, 0}]
 
-    iex> CubePuzzle.step([{1, 0, 0}, {0, 0, 0}], {0, -1, 0}, 1)
+    iex> CubePuzzle.step({1, {0, -1, 0}}, [{1, 0, 0}, {0, 0, 0}])
     [{1, -1, 0}, {1, 0, 0}, {0, 0, 0}]
   """
-  def step(path, _direction, 0), do: path
-  def step(path, direction, n) do
+  def step({0, _}, path), do: path
+  def step({n, direction}, path) do
     [last_position | _] = path
     next_position = add_vector(last_position, direction)
     step(
-      [next_position | path],
-      direction,
-      n - 1
+      {n - 1, direction},
+      [next_position | path]
     )
   end
   defp add_vector({a, b, c}, {d, e, f}), do: {a + d, b + e, c + f}
