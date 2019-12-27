@@ -4,19 +4,6 @@ defmodule CubePuzzle do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> CubePuzzle.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
-
-  @doc """
     # Walks in a straight line
     iex> CubePuzzle.walk([2])
     [{0, 0, 0}, {1, 0, 0}, {2, 0, 0}]
