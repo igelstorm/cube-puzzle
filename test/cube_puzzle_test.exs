@@ -2,13 +2,13 @@ defmodule CubePuzzleTest do
   use ExUnit.Case
   doctest CubePuzzle
 
-  # walk/1
+  # walk/2
   test "walks in a straight line" do
-    assert CubePuzzle.walk([2]) == [{0, 0, 0}, {1, 0, 0}, {2, 0, 0}]
+    assert CubePuzzle.walk([2], [{1, 0, 0}]) == [{0, 0, 0}, {1, 0, 0}, {2, 0, 0}]
   end
 
   test "turns between each move" do
-    assert CubePuzzle.walk([1, 1]) == [{0, 0, 0}, {1, 0, 0}, {1, -1, 0}]
+    assert CubePuzzle.walk([1, 1], [{1, 0, 0}, {0, -1, 0}]) == [{0, 0, 0}, {1, 0, 0}, {1, -1, 0}]
   end
 
   # step/2

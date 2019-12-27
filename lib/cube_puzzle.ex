@@ -1,6 +1,5 @@
 defmodule CubePuzzle do
-  def walk(moves) do
-    directions = [{1, 0, 0}, {0, -1, 0}]
+  def walk(moves, directions) do
     moves
     |> Enum.zip(directions)
     |> List.foldl([{0, 0, 0}], &step/2)
