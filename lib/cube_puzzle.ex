@@ -1,16 +1,16 @@
 defmodule CubePuzzle do
   @starting_position {0, 0, 0}
 
-  def walk(moves, directions) do
+  def fold_puzzle(moves, directions) do
     moves
     |> Enum.zip(directions)
     |> List.foldl([@starting_position], &step/2)
     |> Enum.reverse()
   end
 
-  def step({0, _}, path), do: path
+  defp step({0, _}, path), do: path
 
-  def step({n, direction}, path) do
+  defp step({n, direction}, path) do
     [last_position | _] = path
     next_position = add_vector(last_position, direction)
 
