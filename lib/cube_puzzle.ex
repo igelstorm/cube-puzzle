@@ -1,8 +1,10 @@
 defmodule CubePuzzle do
+  @starting_position {0, 0, 0}
+
   def walk(moves, directions) do
     moves
     |> Enum.zip(directions)
-    |> List.foldl([{0, 0, 0}], &step/2)
+    |> List.foldl([@starting_position], &step/2)
     |> Enum.reverse()
   end
 
@@ -17,18 +19,8 @@ defmodule CubePuzzle do
   end
   defp add_vector({a, b, c}, {d, e, f}), do: {a + d, b + e, c + f}
 
-  def turn({a, 0, 0}, 0) when a != 0, do: {0, 1, 0}
-  def turn({a, 0, 0}, 1) when a != 0, do: {0, -1, 0}
-  def turn({a, 0, 0}, 2) when a != 0, do: {0, 0, 1}
-  def turn({a, 0, 0}, 3) when a != 0, do: {0, 0, -1}
-
-  def turn({0, a, 0}, 0) when a != 0, do: {1, 0, 0}
-  def turn({0, a, 0}, 1) when a != 0, do: {-1, 0, 0}
-  def turn({0, a, 0}, 2) when a != 0, do: {0, 0, 1}
-  def turn({0, a, 0}, 3) when a != 0, do: {0, 0, -1}
-
-  def turn({0, 0, a}, 0) when a != 0, do: {1, 0, 0}
-  def turn({0, 0, a}, 1) when a != 0, do: {-1, 0, 0}
-  def turn({0, 0, a}, 2) when a != 0, do: {0, 1, 0}
-  def turn({0, 0, a}, 3) when a != 0, do: {0, -1, 0}
+  def turn({a, b, c}, 0), do: {c, a, b}
+  def turn({a, b, c}, 1), do: {b, c, a}
+  def turn({a, b, c}, 2), do: {-c, -a, -b}
+  def turn({a, b, c}, 3), do: {-b, -c, -a}
 end
