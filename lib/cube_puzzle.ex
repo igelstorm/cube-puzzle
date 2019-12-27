@@ -32,7 +32,13 @@ defmodule CubePuzzle do
     ]
 
   def solve_the_puzzle do
-    fold_puzzle(@the_puzzle, random_directions())
+    solution = fold_puzzle(@the_puzzle, random_directions())
+
+    if cube?(solution) do
+      solution
+    else
+      solve_the_puzzle()
+    end
   end
 
   defp random_directions do
