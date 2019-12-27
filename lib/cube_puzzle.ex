@@ -4,13 +4,19 @@ defmodule CubePuzzle do
   """
 
   @doc """
-    # Walks in a straight line
+    # Can walk in a straight line
     iex> CubePuzzle.walk([2])
     [{0, 0, 0}, {1, 0, 0}, {2, 0, 0}]
+
+    # Can turn between each move
+    iex> CubePuzzle.walk([1, 1])
+    [{0, 0, 0}, {1, 0, 0}, {1, -1, 0}]
   """
   def walk(moves) do
+    directions = [{1, 0, 0}, {0, -1, 0}]
     moves
-    |> List.foldl([{0, 0, 0}], fn move, acc -> step({move, {1, 0, 0}}, acc) end)
+    |> Enum.zip(directions)
+    |> List.foldl([{0, 0, 0}], &step/2)
     |> Enum.reverse()
   end
 
